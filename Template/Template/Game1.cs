@@ -11,6 +11,11 @@ namespace Template
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+
+        private List<Sprite> _sprites;
+        
+
+        public float Speed = 2f;
         //KOmentar
         public Game1()
         {
@@ -28,6 +33,8 @@ namespace Template
         {
             // TODO: Add your initialization logic here
 
+            this.IsMouseVisible = true;    
+
             base.Initialize();
         }
 
@@ -40,6 +47,15 @@ namespace Template
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            var texture = Content.Load<Texture2D>("ak-47");
+
+            _sprites = new List<Sprite>()
+            {
+                new Sprite(texture) { Position = new Vector2(100, 100), Input = new Input(){ Up = Keys.W, Down = Keys.S} }
+            };
+            
+            _texture = Content.Load<Texture2D>("ak-47");
+            _position = new Vector2(0, 80); 
             // TODO: use this.Content to load your game content here 
         }
 
@@ -59,6 +75,14 @@ namespace Template
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            if (Keyboard.GetState().IsKeyDown(Keys.W) || //Keyboard.GetState().IsKeyDown(Keys.Up))
+            {
+                _position.Y -= Speed;
+            }
+            if (Keyboard.GetState().IsKeyDown(Keys.S) || //Keyboard.GetState().IsKeyDown(Keys.Down))
+            {
+                _position.Y += Speed;
+            }
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
@@ -73,7 +97,13 @@ namespace Template
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
+
+            spriteBatch.Begin();
+
+            spriteBatch.Draw(_texture, _position, Color.White);
+
+            spriteBatch.End();
 
             // TODO: Add your drawing code here.
 
