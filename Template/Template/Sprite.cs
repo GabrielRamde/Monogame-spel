@@ -14,6 +14,12 @@ namespace Template
         private Texture2D _texture;
 
         public Vector2 Position;
+        public float Speed;
         public Input Input;
+
+        public  Sprite(Texture2D texture)
+        {
+            _texture = texture;
+        }
     }
 }
