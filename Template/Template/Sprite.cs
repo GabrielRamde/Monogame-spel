@@ -14,7 +14,7 @@ namespace Template
         private Texture2D _texture;
 
         public Vector2 Position;
-        public float Speed = 2f;
+        public float Speed = 35f;
         public Input Input;
         private bool invert;
 

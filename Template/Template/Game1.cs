@@ -7,7 +7,7 @@ using System;
 namespace Template
 {
     /// <summary>
-    /// This is the main type for your game.
+    /// This is the main type for your game.a
     /// </summary>
     public class Game1 : Game
     {
@@ -15,10 +15,10 @@ namespace Template
         SpriteBatch spriteBatch; 
 
         private List<Sprite> _sprites;
-        private Texture2D _texture;
-        private Vector2 _position;
+        public Texture2D _texture;
+        public Vector2 _position;
 
-        public float Speed = 2f;
+        public float Speed = 35f;
         //KOmentar
         public Game1()
         {
@@ -56,24 +56,24 @@ namespace Template
 
             _sprites = new List<Sprite>()
             {
-                new Sprite(texture,true)
-                {
-                    Position = new Vector2(100, 100),
-                    Input = new Input()
-                    {
-                        Up = Keys.Up,
-                        Down = Keys.Down,
-                        Shoot = Keys.Enter
-                    }
-                },
                 new Sprite(texture,false)
                 {
-                    Position = new Vector2(200, 100),
+                    Position = new Vector2(0, 300),
                     Input = new Input()
                     {
                         Up = Keys.W,
                         Down = Keys.S,
-                        Shoot = Keys.Space,
+                        Shoot = Keys.Space
+                    }
+                },
+                new Sprite(texture,true)
+                {
+                    Position = new Vector2(1625, 300),
+                    Input = new Input()
+                    {
+                        Up = Keys.Up,
+                        Down = Keys.Down,
+                        Shoot = Keys.Enter,
                     }
                 },
             };
