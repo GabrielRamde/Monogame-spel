@@ -16,10 +16,12 @@ namespace Template
         public Vector2 Position;
         public float Speed = 2f;
         public Input Input;
+        private bool invert;
 
-        public Sprite(Texture2D texture)
+        public Sprite(Texture2D texture, bool invert)
         {
             _texture = texture;
+            this.invert = invert;
         }
 
         public void Update()
@@ -46,7 +48,10 @@ namespace Template
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(_texture, Position, Color.White);
+            if(!invert)
+                spriteBatch.Draw(_texture, Position, Color.White);
+            else
+                spriteBatch.Draw(_texture, new Rectangle(Position.ToPoint(),new Point(_texture.Width,_texture.Height)),null, Color.White,0,Vector2.Zero,SpriteEffects.FlipHorizontally,0);
         }
           
     }

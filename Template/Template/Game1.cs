@@ -23,6 +23,8 @@ namespace Template
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
+            graphics.PreferredBackBufferHeight = 1080;
+            graphics.PreferredBackBufferWidth = 1920;
             Content.RootDirectory = "Content";
         }
 
@@ -54,17 +56,17 @@ namespace Template
 
             _sprites = new List<Sprite>()
             {
-                new Sprite(texture)
+                new Sprite(texture,true)
                 {
                     Position = new Vector2(100, 100),
                     Input = new Input()
                     {
                         Up = Keys.Up,
                         Down = Keys.Down,
-                        Shoot = Keys.Enter,
+                        Shoot = Keys.Enter
                     }
                 },
-                new Sprite(texture)
+                new Sprite(texture,false)
                 {
                     Position = new Vector2(200, 100),
                     Input = new Input()
