@@ -11,5 +11,6 @@ namespace Template
     {
         public Keys Up { get; set; }
         public Keys Down { get; set; }
+        public Keys Shoot { get; set; }
     }
 }  

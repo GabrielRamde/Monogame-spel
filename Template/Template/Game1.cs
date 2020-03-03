@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
+using System;
 
 namespace Template
 {
@@ -10,10 +12,11 @@ namespace Template
     public class Game1 : Game
     {
         GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
+        SpriteBatch spriteBatch; 
 
         private List<Sprite> _sprites;
-        
+        private Texture2D _texture;
+        private Vector2 _position;
 
         public float Speed = 2f;
         //KOmentar
@@ -51,11 +54,30 @@ namespace Template
 
             _sprites = new List<Sprite>()
             {
-                new Sprite(texture) { Position = new Vector2(100, 100), Input = new Input(){ Up = Keys.W, Down = Keys.S} }
+                new Sprite(texture)
+                {
+                    Position = new Vector2(100, 100),
+                    Input = new Input()
+                    {
+                        Up = Keys.Up,
+                        Down = Keys.Down,
+                        Shoot = Keys.Enter,
+                    }
+                },
+                new Sprite(texture)
+                {
+                    Position = new Vector2(200, 100),
+                    Input = new Input()
+                    {
+                        Up = Keys.W,
+                        Down = Keys.S,
+                        Shoot = Keys.Space,
+                    }
+                },
             };
-            
+
             _texture = Content.Load<Texture2D>("ak-47");
-            _position = new Vector2(0, 80); 
+            _position = new Vector2(0, 80);
             // TODO: use this.Content to load your game content here 
         }
 
@@ -75,18 +97,10 @@ namespace Template
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.W) || //Keyboard.GetState().IsKeyDown(Keys.Up))
-            {
-                _position.Y -= Speed;
-            }
-            if (Keyboard.GetState().IsKeyDown(Keys.S) || //Keyboard.GetState().IsKeyDown(Keys.Down))
-            {
-                _position.Y += Speed;
-            }
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
+            foreach (var sprite in _sprites)
+                sprite.Update();
 
-            // TODO: Add your update logic here
+
 
             base.Update(gameTime);
         }
@@ -100,8 +114,8 @@ namespace Template
             GraphicsDevice.Clear(Color.Black);
 
             spriteBatch.Begin();
-
-            spriteBatch.Draw(_texture, _position, Color.White);
+            foreach (var sprite in _sprites)
+                sprite.Draw(spriteBatch);
 
             spriteBatch.End();
 
