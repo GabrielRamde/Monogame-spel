@@ -17,8 +17,7 @@ namespace Template
         private List<Sprite> _sprites;
         public Texture2D _texture;
         public Vector2 _position;
-
-        public float Speed = 35f;
+        public float speed = 20f;
         //KOmentar
         public Game1()
         {

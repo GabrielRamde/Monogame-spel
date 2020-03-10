@@ -13,10 +13,13 @@ namespace Template
     {
         private Texture2D _texture;
 
-        public Vector2 Position;
-        public float Speed = 35f;
-        public Input Input;
+        private Vector2 position;
+        private float speed = 20f;
+        private Input input;
         private bool invert;
+
+        public Vector2 Position{ get { return position; } set { position = value; } }
+        public Input Input{ get { return input; } set { input = value; } }
 
         public Sprite(Texture2D texture, bool invert)
         {
@@ -31,17 +34,22 @@ namespace Template
 
         private void Move()
         {
-            if (Input == null)
+            if (input == null)
                 return;
 
-            if(Keyboard.GetState().IsKeyDown(Input.Up))
+            if(Keyboard.GetState().IsKeyDown(input.Up))
             {
-                Position.Y -= Speed;
+                position.Y -= speed; 
             }
 
-            if (Keyboard.GetState().IsKeyDown(Input.Down))
+            if (Keyboard.GetState().IsKeyDown(input.Down))
             {
-                Position.Y += Speed;
+                position.Y += speed;
+            }
+
+            if (Keyboard.GetState().IsKeyDown(input.Shoot))
+            {
+
             }
 
         }
@@ -49,9 +57,9 @@ namespace Template
         public void Draw(SpriteBatch spriteBatch)
         {
             if(!invert)
-                spriteBatch.Draw(_texture, Position, Color.White);
+                spriteBatch.Draw(_texture, position, Color.White);
             else
-                spriteBatch.Draw(_texture, new Rectangle(Position.ToPoint(),new Point(_texture.Width,_texture.Height)),null, Color.White,0,Vector2.Zero,SpriteEffects.FlipHorizontally,0);
+                spriteBatch.Draw(_texture, new Rectangle(position.ToPoint(),new Point(_texture.Width,_texture.Height)),null, Color.White,0,Vector2.Zero,SpriteEffects.FlipHorizontally,0);
         }
           
     }
