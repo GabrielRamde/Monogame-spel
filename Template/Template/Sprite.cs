@@ -12,7 +12,7 @@ namespace Template
     public class Sprite
     {
         private Texture2D _texture;
-
+        public int bulletammo; 
         private Vector2 position;
         private float speed = 20f;
         private Input input;
@@ -30,6 +30,10 @@ namespace Template
         public void Update()
         {
             Move();
+            if (Keyboard.GetState().IsKeyDown(input.Shoot)&& bulletammo>0)
+            {
+                
+            }
         }
 
         private void Move()
@@ -37,9 +41,10 @@ namespace Template
             if (input == null)
                 return;
 
-            if(Keyboard.GetState().IsKeyDown(input.Up))
+
+            if (Keyboard.GetState().IsKeyDown(input.Up))
             {
-                position.Y -= speed; 
+                position.Y -= speed;
             }
 
             if (Keyboard.GetState().IsKeyDown(input.Down))
@@ -47,11 +52,14 @@ namespace Template
                 position.Y += speed;
             }
 
-            if (Keyboard.GetState().IsKeyDown(input.Shoot))
+            if (position.Y + _texture.Height > 1080)
             {
-
+                position.Y = 1080 - _texture.Height;
             }
-
+            else if (position.Y < 0)
+            {
+                position.Y = 0;
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch)

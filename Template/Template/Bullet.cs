@@ -14,12 +14,18 @@ namespace Template
         private Vector2 _bulletposition;
         private float speed = 30f;
 
-        public Vector2 bullettexture { get { return bullettexture; } set { bullettexture = value; } }
+        public Vector2 Bullettposition { get { return _bulletposition; } set { _bulletposition = value; } }
 
         public Bullet(Texture2D bullettexture)
         {
             _bullettexture = bullettexture;
         }
+
+        public void Update()
+        {
+            bool bul        
+        }
+
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(_bullettexture, new Rectangle(_bulletposition.ToPoint(), new Point(50, 50)), Color.White);

@@ -62,7 +62,7 @@ namespace Template
                     {
                         Up = Keys.W,
                         Down = Keys.S,
-                        Shoot = Keys.Space
+                        Shoot = Keys.Space,
                     }
                 },
                 new Sprite(texture,true)
