@@ -34,6 +34,10 @@ namespace Template
             {
                 
             }
+            else if (Keyboard.GetState().IsKeyDown(input.Shoot) && bulletammo < 0)
+            {
+
+            }
         }
 
         private void Move()
@@ -52,13 +56,13 @@ namespace Template
                 position.Y += speed;
             }
 
-            if (position.Y + _texture.Height > 1080)
+            if (position.Y + _texture.Height > 1150)
             {
-                position.Y = 1080 - _texture.Height;
+                position.Y = 1150 - _texture.Height;
             }
-            else if (position.Y < 0)
+            else if (position.Y < -100)
             {
-                position.Y = 0;
+                position.Y = -100;
             }
         }
 

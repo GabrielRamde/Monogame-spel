@@ -37,7 +37,7 @@ namespace Template
         {
             // TODO: Add your initialization logic here
 
-            this.IsMouseVisible = true;    
+               
 
             base.Initialize();
         }

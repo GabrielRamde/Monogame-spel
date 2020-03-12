@@ -23,12 +23,17 @@ namespace Template
 
         public void Update()
         {
-            bool bul        
+            Move();        
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(_bullettexture, new Rectangle(_bulletposition.ToPoint(), new Point(50, 50)), Color.White);
+        }
+
+        private void Move()
+        {
+            _bulletposition = new Vector2(_bulletposition.X, _bulletposition.Y);
         }
     }
 }
