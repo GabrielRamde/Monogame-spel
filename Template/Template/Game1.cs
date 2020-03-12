@@ -6,49 +6,41 @@ using System;
 
 namespace Template
 {
-    /// <summary>
-    /// This is the main type for your game.a
-    /// </summary>
     public class Game1 : Game
     {
         GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch; 
+        SpriteBatch spriteBatch;
+
+        public static int bredd;
+        public static int hojd;
 
         private List<Sprite> _sprites;
         public Texture2D _texture;
         public Vector2 _position;
         public float speed = 20f;
-        //KOmentar
+
+        public Texture2D _background;
+        public Vector2 _backgroundpos = new Vector2(0, 0);
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferHeight = 1080;
-            graphics.PreferredBackBufferWidth = 1920;
+            hojd = graphics.PreferredBackBufferHeight = 1080;
+            bredd = graphics.PreferredBackBufferWidth = 1920;
             Content.RootDirectory = "Content";
         }
 
-        /// <summary>
-        /// Allows the game to perform any initialization it needs to before starting to run.
-        /// This is where it can query for any required services and load any non-graphic
-        /// related content.  Calling base.Initialize will enumerate through any components
-        /// and initialize them as well.
-        /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
 
-               
+
+
 
             base.Initialize();
         }
 
-        /// <summary>
-        /// LoadContent will be called once per game and is the place to load
-        /// all of your content.
-        /// </summary>
         protected override void LoadContent()
         {
-            // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             var texture = Content.Load<Texture2D>("ak-47");
@@ -67,7 +59,7 @@ namespace Template
                 },
                 new Sprite(texture,true)
                 {
-                    Position = new Vector2(1625, 300),
+                    Position = new Vector2(1575, 300),
                     Input = new Input()
                     {
                         Up = Keys.Up,
@@ -76,28 +68,22 @@ namespace Template
                     }
                 },
             };
-
+            
             _texture = Content.Load<Texture2D>("ak-47");
             _position = new Vector2(0, 80);
-            // TODO: use this.Content to load your game content here 
+            
+            _background = Content.Load<Texture2D>("dust2");                       
         }
 
-        /// <summary>
-        /// UnloadContent will be called once per game and is the place to unload
-        /// game-specific content.
-        /// </summary>
         protected override void UnloadContent()
         {
             // TODO: Unload any non ContentManager content here
         }
 
-        /// <summary>
-        /// Allows the game to run logic such as updating the world,
-        /// checking for collisions, gathering input, and playing audio.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+                Exit();
             foreach (var sprite in _sprites)
                 sprite.Update();
 
@@ -106,21 +92,20 @@ namespace Template
             base.Update(gameTime);
         }
 
-        /// <summary>
-        /// This is called when the game should draw itself.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
 
             spriteBatch.Begin();
+            Rectangle backgroundRec = new Rectangle();
+            backgroundRec.Location = _backgroundpos.ToPoint();
+            backgroundRec.Size = new Point(bredd, hojd);
+            spriteBatch.Draw(_background, backgroundRec, Color.White);
             foreach (var sprite in _sprites)
                 sprite.Draw(spriteBatch);
 
             spriteBatch.End();
 
-            // TODO: Add your drawing code here.
 
             base.Draw(gameTime);
         }

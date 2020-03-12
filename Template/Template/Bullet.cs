@@ -33,7 +33,7 @@ namespace Template
 
         private void Move()
         {
-            _bulletposition = new Vector2(_bulletposition.X, _bulletposition.Y);
+            _bulletposition = new Vector2(_bulletposition.X - 0, _bulletposition.Y);
         }
     }
 }

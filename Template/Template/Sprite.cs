@@ -17,6 +17,7 @@ namespace Template
         private float speed = 20f;
         private Input input;
         private bool invert;
+        private Rectangle size;
 
         public Vector2 Position{ get { return position; } set { position = value; } }
         public Input Input{ get { return input; } set { input = value; } }
@@ -25,6 +26,7 @@ namespace Template
         {
             _texture = texture;
             this.invert = invert;
+            size.Size = new Point(350, 200);
         }
 
         public void Update()
@@ -56,22 +58,23 @@ namespace Template
                 position.Y += speed;
             }
 
-            if (position.Y + _texture.Height > 1150)
+            if (position.Y + size.Height > 1090)
             {
-                position.Y = 1150 - _texture.Height;
+                position.Y = 1090 - size.Height;
             }
-            else if (position.Y < -100)
+            else if (position.Y < -40)
             {
-                position.Y = -100;
+                position.Y = -40;
             }
+            size.Location = position.ToPoint();
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
             if(!invert)
-                spriteBatch.Draw(_texture, position, Color.White);
+                spriteBatch.Draw(_texture, size, Color.White);
             else
-                spriteBatch.Draw(_texture, new Rectangle(position.ToPoint(),new Point(_texture.Width,_texture.Height)),null, Color.White,0,Vector2.Zero,SpriteEffects.FlipHorizontally,0);
+                spriteBatch.Draw(_texture, size,null, Color.White,0,Vector2.Zero,SpriteEffects.FlipHorizontally,0);
         }
           
     }
