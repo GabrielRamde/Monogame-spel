@@ -12,28 +12,53 @@ namespace Template
     {
         private Texture2D _bullettexture;
         private Vector2 _bulletposition;
-        private float speed = 30f;
+        private Rectangle _bullethitbox = new Rectangle();
+        private float speed = 50f;
+        private bool invert; 
 
-        public Vector2 Bullettposition { get { return _bulletposition; } set { _bulletposition = value; } }
+        public Vector2 Bulletposition { get { return _bulletposition; } set { _bulletposition = value; } }
+        public Rectangle Bullethitbox { get { return _bullethitbox; } set { _bullethitbox = value; } }
 
-        public Bullet(Texture2D bullettexture)
+
+        public Bullet(Texture2D bullettexture, Vector2 bulletposition, bool invert)
         {
             _bullettexture = bullettexture;
+            _bulletposition = bulletposition;
+            _bullethitbox.Size = new Point(0, 0);
+            this.invert = invert;
         }
 
         public void Update()
         {
-            Move();        
+             Move();        
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(_bullettexture, new Rectangle(_bulletposition.ToPoint(), new Point(50, 50)), Color.White);
+            if (!invert)
+            {
+                spriteBatch.Draw(_bullettexture, _bulletposition, Color.White);
+            }
+            else
+            {
+                spriteBatch.Draw(_bullettexture, _bulletposition, Color.White);
+            }
+            
         }
 
         private void Move()
         {
             _bulletposition = new Vector2(_bulletposition.X - 0, _bulletposition.Y);
+            if (!invert)
+            {
+                _bulletposition.X += speed;
+            }
+            else
+            {
+                _bulletposition.X -= speed;
+            }
+            
+            _bullethitbox.Location = _bulletposition.ToPoint();
         }
     }
 }

@@ -12,19 +12,23 @@ namespace Template
     public class Sprite
     {
         private Texture2D _texture;
-        public int bulletammo; 
+        private Texture2D _bullettexture;
+        public int bulletammo = 1; 
         private Vector2 position;
-        private float speed = 20f;
+        private Vector2 _bulletposition;
+        private float speed = 30f;
         private Input input;
         private bool invert;
         private Rectangle size;
+        private Bullet bullet;
 
         public Vector2 Position{ get { return position; } set { position = value; } }
         public Input Input{ get { return input; } set { input = value; } }
 
-        public Sprite(Texture2D texture, bool invert)
+        public Sprite(Texture2D texture, Texture2D btexture, bool invert)
         {
             _texture = texture;
+            _bullettexture = btexture;
             this.invert = invert;
             size.Size = new Point(350, 200);
         }
@@ -34,12 +38,15 @@ namespace Template
             Move();
             if (Keyboard.GetState().IsKeyDown(input.Shoot)&& bulletammo>0)
             {
-                
+                _bulletposition = position;
+                bullet = new Bullet(_bullettexture, _bulletposition, invert);
+                bulletammo--;
             }
-            else if (Keyboard.GetState().IsKeyDown(input.Shoot) && bulletammo < 0)
+            else if (Keyboard.GetState().IsKeyDown(input.Shoot) && bulletammo <= 0)
             {
-
+                bullet.Update();
             }
+            
         }
 
         private void Move()
@@ -58,15 +65,20 @@ namespace Template
                 position.Y += speed;
             }
 
-            if (position.Y + size.Height > 1090)
+            if (position.Y + size.Height > 1080)
             {
-                position.Y = 1090 - size.Height;
+                position.Y = 1080 - size.Height;
             }
             else if (position.Y < -40)
             {
                 position.Y = -40;
             }
             size.Location = position.ToPoint();
+
+            if (bulletammo == 0)
+            {
+                bullet.Update();
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -75,6 +87,12 @@ namespace Template
                 spriteBatch.Draw(_texture, size, Color.White);
             else
                 spriteBatch.Draw(_texture, size,null, Color.White,0,Vector2.Zero,SpriteEffects.FlipHorizontally,0);
+
+            if (bulletammo == 0)
+            {
+                bullet.Draw(spriteBatch);
+            }
+
         }
           
     }

@@ -17,10 +17,13 @@ namespace Template
         private List<Sprite> _sprites;
         public Texture2D _texture;
         public Vector2 _position;
-        public float speed = 20f;
+        public float speed = 30f;
 
         public Texture2D _background;
         public Vector2 _backgroundpos = new Vector2(0, 0);
+
+        public Texture2D _bullettexture;
+        public Vector2 _bulletposition;
 
         public Game1()
         {
@@ -45,9 +48,11 @@ namespace Template
 
             var texture = Content.Load<Texture2D>("ak-47");
 
+            _bullettexture = Content.Load<Texture2D>("bullet");
+
             _sprites = new List<Sprite>()
             {
-                new Sprite(texture,false)
+                new Sprite(texture, _bullettexture, false)
                 {
                     Position = new Vector2(0, 300),
                     Input = new Input()
@@ -57,7 +62,7 @@ namespace Template
                         Shoot = Keys.Space,
                     }
                 },
-                new Sprite(texture,true)
+                new Sprite(texture, _bullettexture, true)
                 {
                     Position = new Vector2(1575, 300),
                     Input = new Input()
@@ -68,11 +73,11 @@ namespace Template
                     }
                 },
             };
-            
-            _texture = Content.Load<Texture2D>("ak-47");
-            _position = new Vector2(0, 80);
-            
-            _background = Content.Load<Texture2D>("dust2");                       
+                        
+            _background = Content.Load<Texture2D>("dust2");
+
+            _bullettexture = Content.Load<Texture2D>("bullet");
+            _bulletposition = new Vector2(0, 0);
         }
 
         protected override void UnloadContent()
@@ -102,11 +107,11 @@ namespace Template
             backgroundRec.Size = new Point(bredd, hojd);
             spriteBatch.Draw(_background, backgroundRec, Color.White);
             foreach (var sprite in _sprites)
-                sprite.Draw(spriteBatch);
+            sprite.Draw(spriteBatch);            
 
             spriteBatch.End();
 
-
+            
             base.Draw(gameTime);
         }
     }
