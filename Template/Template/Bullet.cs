@@ -14,7 +14,7 @@ namespace Template
         private Vector2 _bulletposition;
         private Rectangle _bullethitbox = new Rectangle();
         private float speed = 50f;
-        private bool invert; 
+        private bool invert;
 
         public Vector2 Bulletposition { get { return _bulletposition; } set { _bulletposition = value; } }
         public Rectangle Bullethitbox { get { return _bullethitbox; } set { _bullethitbox = value; } }
@@ -30,20 +30,20 @@ namespace Template
 
         public void Update()
         {
-             Move();        
+            Move();
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
             if (!invert)
             {
-                spriteBatch.Draw(_bullettexture, _bulletposition, Color.White);
+                spriteBatch.Draw(_bullettexture, new Rectangle(_bulletposition.ToPoint(), new Point(200, 100)), Color.White);
             }
             else
             {
-                spriteBatch.Draw(_bullettexture, _bulletposition, Color.White);
+                spriteBatch.Draw(_bullettexture, new Rectangle(_bulletposition.ToPoint(), new Point(200, 100)), null, Color.White, 0, Vector2.Zero, SpriteEffects.FlipHorizontally, 0);
             }
-            
+
         }
 
         private void Move()
@@ -57,7 +57,7 @@ namespace Template
             {
                 _bulletposition.X -= speed;
             }
-            
+
             _bullethitbox.Location = _bulletposition.ToPoint();
         }
     }
