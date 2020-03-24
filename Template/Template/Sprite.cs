@@ -13,7 +13,7 @@ namespace Template
     {
         private Texture2D _texture;
         private Texture2D _bullettexture;
-        public int bulletammo = 1; 
+        public int bulletammo = 0; 
         private Vector2 position;
         private Vector2 _bulletposition;
         private float speed = 30f;
@@ -75,7 +75,7 @@ namespace Template
             }
             size.Location = position.ToPoint();
 
-            if (bulletammo == 0)
+            if (bulletammo == 0 && bullet != null)
             {
                 bullet.Update();
             }
@@ -88,10 +88,10 @@ namespace Template
             else
                 spriteBatch.Draw(_texture, size,null, Color.White,0,Vector2.Zero,SpriteEffects.FlipHorizontally,0);
 
-            if (bulletammo == 0)
-            {
+            if (bulletammo == 0 && bullet != null)
+
                 bullet.Draw(spriteBatch);
-            }
+                
 
         }
           

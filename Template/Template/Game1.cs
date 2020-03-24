@@ -11,6 +11,8 @@ namespace Template
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        private Random _random;
+
         public static int bredd;
         public static int hojd;
 
@@ -35,7 +37,7 @@ namespace Template
 
         protected override void Initialize()
         {
-
+            _random = new Random();
 
 
 
@@ -73,7 +75,7 @@ namespace Template
                     }
                 },
             };
-                        
+
             _background = Content.Load<Texture2D>("dust2");
 
             _bullettexture = Content.Load<Texture2D>("bullet");
@@ -94,7 +96,10 @@ namespace Template
 
 
 
+
+
             base.Update(gameTime);
+
         }
 
         protected override void Draw(GameTime gameTime)
@@ -107,12 +112,26 @@ namespace Template
             backgroundRec.Size = new Point(bredd, hojd);
             spriteBatch.Draw(_background, backgroundRec, Color.White);
             foreach (var sprite in _sprites)
-            sprite.Draw(spriteBatch);            
+                sprite.Draw(spriteBatch);
 
             spriteBatch.End();
 
-            
+
             base.Draw(gameTime);
         }
+
+
+        void RandomlyGiveBullet()
+        {
+            int Random = _random.Next(0, 2);
+            _sprites[Random].bulletammo = 1;
+
+
+
+
+
+
+
+        }            
     }
 }
