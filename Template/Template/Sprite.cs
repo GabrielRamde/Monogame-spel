@@ -21,6 +21,8 @@ namespace Template
         private bool invert;
         private Rectangle size;
         private Bullet bullet;
+        private static int playerbullet;
+        private int playerid;
 
         public Vector2 Position{ get { return position; } set { position = value; } }
         public Input Input{ get { return input; } set { input = value; } }
@@ -31,6 +33,7 @@ namespace Template
             _bullettexture = btexture;
             this.invert = invert;
             size.Size = new Point(350, 200);
+            playerid = invert ? 0 : 1;
         }
 
         public void Update()
@@ -40,13 +43,13 @@ namespace Template
             {
                 _bulletposition = position;
                 bullet = new Bullet(_bullettexture, _bulletposition, invert);
-                bulletammo--;
+                bulletammo--; 
+                playerbullet = playerid == 1?0:1;
             }
-            else if (Keyboard.GetState().IsKeyDown(input.Shoot) && bulletammo <= 0)
+            if (playerbullet == playerid && bulletammo <= 0)
             {
-                bullet.Update();
+                bulletammo++;
             }
-            
         }
 
         private void Move()

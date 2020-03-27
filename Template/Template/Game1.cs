@@ -80,6 +80,8 @@ namespace Template
 
             _bullettexture = Content.Load<Texture2D>("bullet");
             _bulletposition = new Vector2(0, 0);
+
+            RandomlyGiveBullet();
         }
 
         protected override void UnloadContent()
@@ -125,13 +127,6 @@ namespace Template
         {
             int Random = _random.Next(0, 2);
             _sprites[Random].bulletammo = 1;
-
-
-
-
-
-
-
         }            
     }
 }
