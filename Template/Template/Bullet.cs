@@ -26,6 +26,10 @@ namespace Template
             _bulletposition = bulletposition;
             _bullethitbox.Size = new Point(0, 0);
             this.invert = invert;
+            if (!invert)
+                _bulletposition += new Vector2(300, 50);
+            else
+                _bulletposition += new Vector2(-65, 50);
         }
 
         public void Update()
@@ -37,11 +41,11 @@ namespace Template
         {
             if (!invert)
             {
-                spriteBatch.Draw(_bullettexture, new Rectangle(_bulletposition.ToPoint(), new Point(200, 100)), Color.White);
+                spriteBatch.Draw(_bullettexture, new Rectangle(_bulletposition.ToPoint(), new Point(100, 50)), Color.White);
             }
             else
             {
-                spriteBatch.Draw(_bullettexture, new Rectangle(_bulletposition.ToPoint(), new Point(200, 100)), null, Color.White, 0, Vector2.Zero, SpriteEffects.FlipHorizontally, 0);
+                spriteBatch.Draw(_bullettexture, new Rectangle(_bulletposition.ToPoint(), new Point(100, 50)), null, Color.White, 0, Vector2.Zero, SpriteEffects.FlipHorizontally, 0);
             }
 
         }

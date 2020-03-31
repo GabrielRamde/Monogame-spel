@@ -94,13 +94,14 @@ namespace Template
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
             foreach (var sprite in _sprites)
+
                 sprite.Update();
+            if (.hitbox.Intersects(.hitbox))
 
 
 
 
-
-            base.Update(gameTime);
+                base.Update(gameTime);
 
         }
 
