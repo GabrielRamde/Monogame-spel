@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Template
 {
-    class Bullet
+    public class Bullet
     {
         private Texture2D _bullettexture;
         private Vector2 _bulletposition;

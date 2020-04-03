@@ -23,9 +23,16 @@ namespace Template
         private Bullet bullet;
         private static int playerbullet;
         private int playerid;
+        private bool alive = true;
 
         public Vector2 Position{ get { return position; } set { position = value; } }
         public Input Input{ get { return input; } set { input = value; } }
+
+        public Rectangle Size{ get { return size; } set { size = value; } }
+
+        public Bullet Bullet { get { return bullet; } set { bullet = value; } }
+
+        public bool Alive { get => alive; set => alive = value; }
 
         public Sprite(Texture2D texture, Texture2D btexture, bool invert)
         {
@@ -86,12 +93,19 @@ namespace Template
 
         public void Draw(SpriteBatch spriteBatch)
         {
+            Color drawColor = Color.White;
+            if (!alive)
+            {
+                drawColor = Color.Red;
+            }
             if(!invert)
-                spriteBatch.Draw(_texture, size, Color.White);
+                spriteBatch.Draw(_texture, size, drawColor);
             else
-                spriteBatch.Draw(_texture, size,null, Color.White,0,Vector2.Zero,SpriteEffects.FlipHorizontally,0);
+                spriteBatch.Draw(_texture, size,null, drawColor,0,Vector2.Zero,SpriteEffects.FlipHorizontally,0);
 
             if (bulletammo == 0 && bullet != null)
+
+            
 
                 bullet.Draw(spriteBatch);
                 

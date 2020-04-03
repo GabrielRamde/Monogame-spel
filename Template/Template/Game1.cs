@@ -96,11 +96,17 @@ namespace Template
             foreach (var sprite in _sprites)
 
                 sprite.Update();
-            if (.hitbox.Intersects(.hitbox))
-
-
-
-
+           
+           /* if (_sprites[0].Size.Intersects(_sprites[1].Bullet.Bullethitbox))
+            {
+                _sprites[0].Alive = false;    
+            }
+            else if (_sprites[1].Size.Intersects(_sprites[0].Bullet.Bullethitbox))
+            {
+                _sprites[1].Alive = false;
+            }
+            else 
+            */
                 base.Update(gameTime);
 
         }
