@@ -41,11 +41,11 @@ namespace Template
         {
             if (!invert)
             {
-                spriteBatch.Draw(_bullettexture, new Rectangle(_bulletposition.ToPoint(), new Point(100, 50)), Color.White);
+                spriteBatch.Draw(_bullettexture, new Rectangle(_bulletposition.ToPoint(), new Point(100, 25)), Color.White);
             }
             else
             {
-                spriteBatch.Draw(_bullettexture, new Rectangle(_bulletposition.ToPoint(), new Point(100, 50)), null, Color.White, 0, Vector2.Zero, SpriteEffects.FlipHorizontally, 0);
+                spriteBatch.Draw(_bullettexture, new Rectangle(_bulletposition.ToPoint(), new Point(100, 25)), null, Color.White, 0, Vector2.Zero, SpriteEffects.FlipHorizontally, 0);
             }
 
         }
