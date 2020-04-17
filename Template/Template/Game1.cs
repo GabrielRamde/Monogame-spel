@@ -17,15 +17,19 @@ namespace Template
         public static int hojd;
 
         private List<Sprite> _sprites;
-        public Texture2D _texture;
-        public Vector2 _position;
-        public float speed = 30f;
+        private Texture2D _texture;
+        private Vector2 _position;
+        private float speed = 30f;
 
-        public Texture2D _background;
-        public Vector2 _backgroundpos = new Vector2(0, 0);
+        private Texture2D _background;
+        private Vector2 _backgroundpos = new Vector2(0, 0);
 
-        public Texture2D _bullettexture;
-        public Vector2 _bulletposition;
+        private Texture2D _bullettexture;
+        private Vector2 _bulletposition;
+
+        private int screen = 0;
+
+        
 
         public Game1()
         {
@@ -93,21 +97,32 @@ namespace Template
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-            foreach (var sprite in _sprites)
-
-                sprite.Update();
-
-           
-            if (_sprites[1].Bullet != null && _sprites[0].Size.Intersects(_sprites[1].Bullet.Bullethitbox))
+            if (screen == 1) //Spelskärm
             {
-                _sprites[0].Alive = false;    
-            }
-            else if (_sprites[0].Bullet != null && _sprites[1].Size.Intersects(_sprites[0].Bullet.Bullethitbox))
+
+
+                foreach (var sprite in _sprites)
+
+                    sprite.Update();
+
+
+                if (_sprites[1].Bullet != null && _sprites[0].Size.Intersects(_sprites[1].Bullet.Bullethitbox))
+                {
+                    _sprites[0].Alive = false;
+                }
+                else if (_sprites[0].Bullet != null && _sprites[1].Size.Intersects(_sprites[0].Bullet.Bullethitbox))
+                {
+                    _sprites[1].Alive = false;
+                }
+            } 
+            else if (screen == 2) //Slutskärm
             {
-                _sprites[1].Alive = false;
+
             }
-            else 
-            
+            else if (screen == 0) //Startskärm
+            {
+
+            }
                 base.Update(gameTime);
 
         }
@@ -116,14 +131,19 @@ namespace Template
         {
             GraphicsDevice.Clear(Color.Black);
 
-            spriteBatch.Begin();
+            spriteBatch.Begin(); 
             Rectangle backgroundRec = new Rectangle();
             backgroundRec.Location = _backgroundpos.ToPoint();
             backgroundRec.Size = new Point(bredd, hojd);
             spriteBatch.Draw(_background, backgroundRec, Color.White);
-            foreach (var sprite in _sprites)
-                sprite.Draw(spriteBatch);
+            if (screen == 1) 
+            {
 
+
+
+                foreach (var sprite in _sprites)
+                    sprite.Draw(spriteBatch);
+            }
             spriteBatch.End();
 
 
