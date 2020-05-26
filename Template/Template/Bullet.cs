@@ -20,7 +20,7 @@ namespace Template
         public Rectangle Bullethitbox { get { return _bullethitbox; } set { _bullethitbox = value; } }
 
 
-        public Bullet(Texture2D bullettexture, Vector2 bulletposition, bool invert)
+        public Bullet(Texture2D bullettexture, Vector2 bulletposition, bool invert) //bullets positioner och texture samt ifall den ska inverta eller inte beroende på vem som skjuter
         {
             _bullettexture = bullettexture;
             _bulletposition = bulletposition;
@@ -52,7 +52,7 @@ namespace Template
 
         private void Move()
         {
-            _bulletposition = new Vector2(_bulletposition.X - 0, _bulletposition.Y);
+            _bulletposition = new Vector2(_bulletposition.X - 0, _bulletposition.Y);    //hur bullet ska röra sig, spelare 1 framåt spelare 2 bakåt och med vilken hastighet
             if (!invert)
             {
                 _bulletposition.X += speed;

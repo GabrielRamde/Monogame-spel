@@ -46,16 +46,16 @@ namespace Template
         }
 
         public void Update()
-        {
-            Move();
-            if (Keyboard.GetState().IsKeyDown(input.Shoot)&& bulletammo>0)
+        {       
+            Move(); 
+            if (Keyboard.GetState().IsKeyDown(input.Shoot)&& bulletammo>0) //skickar över skottet till personen som inte skjöt
             {
                 _bulletposition = position;
                 bullet = new Bullet(_bullettexture, _bulletposition, invert);
                 bulletammo--; 
                 playerbullet = playerid == 2?1:2;
             }
-            if (playerbullet == playerid && bulletammo <= 0)
+            if (playerbullet == playerid && bulletammo <= 0) 
             {
                 bulletammo++;
             }
@@ -65,8 +65,8 @@ namespace Template
             if (input == null)
                 return;
 
-
-            if (Keyboard.GetState().IsKeyDown(input.Up))
+                                                            //vad mina knappar ska göra
+            if (Keyboard.GetState().IsKeyDown(input.Up)) 
             {
                 position.Y -= speed;
             }
@@ -92,26 +92,24 @@ namespace Template
             }
         }
 
-        public void Draw(SpriteBatch spriteBatch)
-        {
+         public void Draw(SpriteBatch spriteBatch)
+         {
             Color drawColor = Color.White;
             if (!alive)
             {
                 drawColor = Color.Red;
             }
-            if(!invert)
+            if (!invert)
                 spriteBatch.Draw(_texture, size, drawColor);
             else
-                spriteBatch.Draw(_texture, size,null, drawColor,0,Vector2.Zero,SpriteEffects.FlipHorizontally,0);
+                spriteBatch.Draw(_texture, size, null, drawColor, 0, Vector2.Zero, SpriteEffects.FlipHorizontally, 0);
 
             if (bulletammo == 0 && bullet != null)
 
-            
+
 
                 bullet.Draw(spriteBatch);
-                
+        } 
 
-        }
-          
     }
 }

@@ -65,8 +65,8 @@ namespace Template
             {
                 new Sprite(texture, _bullettexture, false) //första spelare
                 {
-                    Position = new Vector2(0, 300),
-                    Input = new Input()
+                    Position = new Vector2(0, 300), //position
+                    Input = new Input() //vilka knappar som är tillgängliga
                     {
                         Up = Keys.W,
                         Down = Keys.S,
@@ -75,10 +75,10 @@ namespace Template
                 },
                 new Sprite(texture, _bullettexture, true) //andra spelare
                 {
-                    Position = new Vector2(1575, 300),
-                    Input = new Input()
+                    Position = new Vector2(1575, 300), //position
+                    Input = new Input() //vilka knappar som är tillgängliga
                     {
-                        Up = Keys.Up,
+                        Up = Keys.Up, 
                         Down = Keys.Down,
                         Shoot = Keys.Enter,
                     }
@@ -88,8 +88,8 @@ namespace Template
             _background = Content.Load<Texture2D>("dust2"); // Bakgrund till spelet
             font = Content.Load<SpriteFont>("Countdown"); // Text för nedräkning
 
-            _bullettexture = Content.Load<Texture2D>("bullet");
-            _bulletposition = new Vector2(0, 0);
+            _bullettexture = Content.Load<Texture2D>("bullet"); //texturer för min bullet
+            _bulletposition = new Vector2(0, 0); //position för bullet
 
             RandomlyGiveBullet();
         }
@@ -112,7 +112,7 @@ namespace Template
                     sprite.Update();
 
 
-                if (_sprites[1].Bullet != null && _sprites[0].Size.Intersects(_sprites[1].Bullet.Bullethitbox))
+                if (_sprites[1].Bullet != null && _sprites[0].Size.Intersects(_sprites[1].Bullet.Bullethitbox)) //kollar ifall man har blivit träffad och isåfall byter den till slutskärm 
                 {
                     _sprites[0].Alive = false;
                     screen = 2;
@@ -142,7 +142,7 @@ namespace Template
             }
             else if (screen == 0) //Startskärm
             {
-                countdown += (float)gameTime.ElapsedGameTime.TotalSeconds;
+                countdown += (float)gameTime.ElapsedGameTime.TotalSeconds; //startar en nedräkning från 3 till 1
                 if (countdown > 3)
                 {
                     screen = 1;
@@ -152,11 +152,11 @@ namespace Template
 
         }
 
-        protected override void Draw(GameTime gameTime)
+        protected override void Draw(GameTime gameTime) 
         {
             GraphicsDevice.Clear(Color.Black);
 
-            spriteBatch.Begin(); 
+            spriteBatch.Begin(); //skriver ut hur stor min bakgrund ska vara och skärmen och hur den ska se ut
             Rectangle backgroundRec = new Rectangle();
             backgroundRec.Location = _backgroundpos.ToPoint();
             backgroundRec.Size = new Point(bredd, hojd);
@@ -171,12 +171,12 @@ namespace Template
 
             else if (screen == 2) //Slutskärm
             {
-                spriteBatch.DrawString(font, ("Press enter for restart"), new Vector2(560, 190), Color.Black);
+                spriteBatch.DrawString(font, ("Press enter for restart"), new Vector2(560, 190), Color.Black); //skriver ut text efter någon har vunnit
                 spriteBatch.DrawString(font,("Player Won"), new Vector2(660, 450), Color.Black);
             }
             else if (screen == 0) //Startskärm
             {
-                spriteBatch.DrawString(font,(3-(int)countdown).ToString(), new Vector2(960, 390), Color.Black);
+                spriteBatch.DrawString(font,(3-(int)countdown).ToString(), new Vector2(960, 390), Color.Black); //nedräknare
             }
             spriteBatch.End();
 
