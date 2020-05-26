@@ -34,13 +34,15 @@ namespace Template
 
         public bool Alive { get => alive; set => alive = value; }
 
+        public int Playerbullet { get => playerbullet; set => playerbullet = value; }
+
         public Sprite(Texture2D texture, Texture2D btexture, bool invert)
         {
             _texture = texture;
             _bullettexture = btexture;
             this.invert = invert;
             size.Size = new Point(350, 200);
-            playerid = invert ? 0 : 1;
+            playerid = invert ? 1 : 2;
         }
 
         public void Update()
@@ -51,14 +53,13 @@ namespace Template
                 _bulletposition = position;
                 bullet = new Bullet(_bullettexture, _bulletposition, invert);
                 bulletammo--; 
-                playerbullet = playerid == 1?0:1;
+                playerbullet = playerid == 2?1:2;
             }
             if (playerbullet == playerid && bulletammo <= 0)
             {
                 bulletammo++;
             }
         }
-
         private void Move()
         {
             if (input == null)

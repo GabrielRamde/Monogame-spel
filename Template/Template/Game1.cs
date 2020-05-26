@@ -135,6 +135,8 @@ namespace Template
                     _sprites[1].Bullet = null;
                     _sprites[0].bulletammo = 0;
                     _sprites[1].bulletammo = 0;
+                    _sprites[0].Playerbullet = 0;
+                    _sprites[1].Playerbullet = 0;
                     RandomlyGiveBullet();
                 }
             }

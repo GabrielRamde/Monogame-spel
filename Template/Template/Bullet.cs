@@ -13,7 +13,7 @@ namespace Template
         private Texture2D _bullettexture;
         private Vector2 _bulletposition;
         private Rectangle _bullethitbox = new Rectangle();
-        private float speed = 100f;
+        private float speed = 70f;
         private bool invert;
 
         public Vector2 Bulletposition { get { return _bulletposition; } set { _bulletposition = value; } }
