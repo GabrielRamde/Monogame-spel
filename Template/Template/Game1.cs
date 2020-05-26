@@ -6,12 +6,13 @@ using System;
 
 namespace Template
 {
-    public class Game1 : Game
+    public class Game1 : Game //Mina olika variablar, lista, texturer, positioner
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
         private Random _random;
+        private int Random;
 
         public static int bredd;
         public static int hojd;
@@ -35,9 +36,9 @@ namespace Template
         
         
 
-        public Game1()
+        public Game1() 
         {
-            graphics = new GraphicsDeviceManager(this);
+            graphics = new GraphicsDeviceManager(this); //skärmstorlek på spelet
             hojd = graphics.PreferredBackBufferHeight = 1080;
             bredd = graphics.PreferredBackBufferWidth = 1920;
             Content.RootDirectory = "Content";
@@ -52,7 +53,7 @@ namespace Template
             base.Initialize();
         }
 
-        protected override void LoadContent()
+        protected override void LoadContent() //texturer på mina saker och positioner i en lista, samt knappar för vad dem ska göra
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
@@ -62,7 +63,7 @@ namespace Template
 
             _sprites = new List<Sprite>()
             {
-                new Sprite(texture, _bullettexture, false)
+                new Sprite(texture, _bullettexture, false) //första spelare
                 {
                     Position = new Vector2(0, 300),
                     Input = new Input()
@@ -72,7 +73,7 @@ namespace Template
                         Shoot = Keys.Space,
                     }
                 },
-                new Sprite(texture, _bullettexture, true)
+                new Sprite(texture, _bullettexture, true) //andra spelare
                 {
                     Position = new Vector2(1575, 300),
                     Input = new Input()
@@ -84,8 +85,8 @@ namespace Template
                 },
             };
 
-            _background = Content.Load<Texture2D>("dust2");
-            font = Content.Load<SpriteFont>("Countdown");
+            _background = Content.Load<Texture2D>("dust2"); // Bakgrund till spelet
+            font = Content.Load<SpriteFont>("Countdown"); // Text för nedräkning
 
             _bullettexture = Content.Load<Texture2D>("bullet");
             _bulletposition = new Vector2(0, 0);
@@ -100,7 +101,7 @@ namespace Template
 
         protected override void Update(GameTime gameTime)
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+            if (Keyboard.GetState().IsKeyDown(Keys.Escape)) 
                 Exit();
             if (screen == 1) //Spelskärm
             {
@@ -124,9 +125,17 @@ namespace Template
             }
             else if (screen == 2) //Slutskärm
             {
-                if (Keyboard.GetState().IsKeyDown(Keys.RightShift))
+                if (Keyboard.GetState().IsKeyDown(Keys.Enter))
                 {
                     screen = 0;
+                    countdown = 0;
+                    _sprites[0].Alive = true;
+                    _sprites[1].Alive = true;
+                    _sprites[0].Bullet = null;
+                    _sprites[1].Bullet = null;
+                    _sprites[0].bulletammo = 0;
+                    _sprites[1].bulletammo = 0;
+                    RandomlyGiveBullet();
                 }
             }
             else if (screen == 0) //Startskärm
@@ -154,7 +163,10 @@ namespace Template
             {
                 foreach (var sprite in _sprites)
                     sprite.Draw(spriteBatch);
+                spriteBatch.Draw(_bullettexture, new Rectangle(100 + Random * 1720, 50, 100, 25), Color.White);
+                    
             }
+
             else if (screen == 2) //Slutskärm
             {
                 spriteBatch.DrawString(font, ("Press enter for restart"), new Vector2(560, 190), Color.Black);
@@ -171,9 +183,9 @@ namespace Template
         }
 
 
-        void RandomlyGiveBullet()
+        void RandomlyGiveBullet() //bestämmer vem som ska få skottet
         {
-            int Random = _random.Next(0, 2);
+            Random = _random.Next(0, 2);
             _sprites[Random].bulletammo = 1;
         }            
     }

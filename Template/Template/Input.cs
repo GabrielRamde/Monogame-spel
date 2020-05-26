@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Template
 {
-    public class Input
+    public class Input //Vilka knappar som ska finnas på mina objekt
     {
         public Keys Up { get; set; }
         public Keys Down { get; set; }
